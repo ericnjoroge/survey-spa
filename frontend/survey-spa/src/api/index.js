@@ -47,3 +47,16 @@ export function fetchSurveys() {
     },300)
   })
 }
+
+export function fetchSurvey (surveyId) {
+  return new Promise((resolve,reject) => {
+    setTimeout(() => {
+      const survey = surveys.find(survey => survey.id === surveyId)
+      if (survey) {
+        resolve(survey)
+      } else {
+        reject(Error('Survey does not exist'))
+      }
+    },300)
+  })
+}
