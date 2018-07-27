@@ -53,20 +53,16 @@
 </template>
 
 <script>
-import { fetchSurvey, saveSurveyResponse } from '@/api'
+import { saveSurveyResponse } from '@/api'
 
 export default {
   data() {
-    return {
-      survey: {},
+    return {      
       currentQuestion: 0
     }
   },
   beforeMount() {
-    fetchSurvey(parseInt(this.$route.params.id))
-      .then((response) =>  {
-        this.survey = response
-      })
+    this.$store.dispatch('loadSurvey', { id: parseInt(this.$route.params.id) })
   },
   methods: {
     goToNextQuestion() {
@@ -96,6 +92,9 @@ export default {
         return numQuestions === numCompleted
       }
       return false
+    },
+    survey() {
+      return this.$store.state.currentSurvey
     }
   }
 }
