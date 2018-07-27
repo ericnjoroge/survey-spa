@@ -35,6 +35,16 @@ const mutations = {
       payload.survey.questions[i].choice = null
     }
     state.currentSurvey = payload.survey
+  },
+  setChoice(state, payload) {
+    const { questionId, choice } = payload
+    const nQuestions = state.currentSurvey.questions.length
+    for (let i = 0; i < nQuestions; i++) {
+      if (state.currentSurvey.questions[i].id === questionId) {
+        state.currentSurvey.questions[i].choice = choice
+        break
+      }
+    }
   }
 }
 

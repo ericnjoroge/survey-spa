@@ -21,7 +21,7 @@
                 <div class="control">
                   <div v-for="choice in question.choices" v-bind:key="choice.id">
                     <label class="radio">
-                      <input type="radio" v-model="question.choice" :value="choice.id">
+                      <input type="radio" v-model="selectedChoice" :value="choice.id">
                       {{ choice.text }}
                     </label>
                   </div>
@@ -57,7 +57,7 @@ import { saveSurveyResponse } from '@/api'
 
 export default {
   data() {
-    return {      
+    return {
       currentQuestion: 0
     }
   },
@@ -95,6 +95,16 @@ export default {
     },
     survey() {
       return this.$store.state.currentSurvey
+    },
+    selectedChoice: {
+      get() {
+        const question = this.survey.questions[this.currentQuestion]
+        return question.choice
+      },
+      set(value) {
+        const question = this.survey.questions[this.currentQuestion]
+        this.$store.commit('setChoice', { questionId: question.id, choice: value })
+      }
     }
   }
 }
