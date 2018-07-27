@@ -2,7 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 
 // imports of AJAX functions
-import { fetchSurveys, fetchSurvey } from '@/api'
+import { fetchSurveys, fetchSurvey, saveSurveyResponse } from '@/api'
 
 Vue.use(Vuex)
 
@@ -21,6 +21,9 @@ const actions = {
   loadSurvey(context, { id }) {
     return fetchSurvey(id)
       .then((response) => context.commit('setSurvey', { survey: response }))
+  },
+  addSurveyResponse(context) {
+    return saveSurveyResponse(context.state.currentSurvey)
   }
 }
 

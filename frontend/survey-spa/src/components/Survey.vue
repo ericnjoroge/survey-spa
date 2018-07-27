@@ -53,7 +53,6 @@
 </template>
 
 <script>
-import { saveSurveyResponse } from '@/api'
 
 export default {
   data() {
@@ -80,7 +79,7 @@ export default {
       }
     },
     handleSubmit() {
-      saveSurveyResponse(this.survey)
+      this.$store.dispatch('addSurveyResponse')
         .then(() => this.$router.push('/'))
     }
   },
