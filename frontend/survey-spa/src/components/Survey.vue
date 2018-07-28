@@ -21,7 +21,7 @@
                 <div class="control">
                   <div v-for="choice in question.choices" v-bind:key="choice.id">
                     <label class="radio">
-                      <input type="radio" v-model="selectedChoice" :value="choice.id">
+                      <input type="radio" name="choice" v-model="selectedChoice" :value="choice.id">
                       {{ choice.text }}
                     </label>
                   </div>
@@ -39,7 +39,7 @@
               </nav>
             </div>
             <div class="column has-text-centered">
-              <a v-if="surveyComplete"
+              <a v-show="surveyComplete"
                   class="button is-focused is-primary is-large"
                   @click.stop="handleSubmit">
                 Submit

@@ -2,7 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 
 // imports of AJAX functions
-import { fetchSurveys, fetchSurvey, saveSurveyResponse } from '@/api'
+import { fetchSurveys, fetchSurvey, saveSurveyResponse, postNewSurvey } from '@/api'
 
 Vue.use(Vuex)
 
@@ -24,6 +24,9 @@ const actions = {
   },
   addSurveyResponse(context) {
     return saveSurveyResponse(context.state.currentSurvey)
+  },
+  submitNewSurvey(context,survey) {
+    return postNewSurvey(survey)
   }
 }
 
@@ -35,7 +38,7 @@ const mutations = {
   setSurvey(state, payload) {
     const nQuestions = payload.survey.questions.length
     for (let i = 0; i < nQuestions; i++) {
-      payload.survey.questions[i].choice = null
+      Vue.set(payload.survey.questions[i], 'choice', null)
     }
     state.currentSurvey = payload.survey
   },
