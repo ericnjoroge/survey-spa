@@ -31,7 +31,7 @@ class Question(db.Model):
     choices = db.relationship('Choice', backref='question',lazy=False)
 
     def to_dict(self):
-        return dict(id=self.id, text=self.test,
+        return dict(id=self.id, text=self.text,
                     created_at=self.created_at.strftime('%Y-%m-%d %H:%M:%S'),
                     survey_id=self.survey_id,
                     choices=[choice.to_dict() for choice in self.choices])
