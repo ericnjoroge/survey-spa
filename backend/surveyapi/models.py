@@ -13,7 +13,7 @@ class Survey(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.Text)
-    created_at = db.Column(db.Datetime, default=datetime.utcnow())
+    created_at = db.Column(db.DateTime, default=datetime.utcnow())
     questions = db.relationship('Question',backref='survey',lazy=False)
 
     def to_dict(self):
@@ -21,19 +21,19 @@ class Survey(db.Model):
                     created_at=self.created_at.strftime('%Y-%m-%d %H:%M:%S'),
                     questions=[question.to_dict() for question in self.questions])
 
-class Questions(db.Model):
+class Question(db.Model):
     __tablename__ = 'questions'
 
     id = db.Column(db.Integer, primary_key=True)
     text = db.Column(db.String(500), nullable=False)
-    created_at = db.Column(db.Datetime, default=datetime.utcnow())
+    created_at = db.Column(db.DateTime, default=datetime.utcnow())
     survey_id = db.Column(db.Integer, db.ForeignKey('surveys.id'))
     choices = db.relationship('Choice', backref='question',lazy=False)
 
     def to_dict(self):
         return dict(id=self.id, text=self.test,
                     created_at=self.created_at.strftime('%Y-%m-%d %H:%M:%S'),
-                    survey_id=self.survey_id
+                    survey_id=self.survey_id,
                     choices=[choice.to_dict() for choice in self.choices])
 
 class Choice(db.Model):
