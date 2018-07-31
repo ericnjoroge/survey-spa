@@ -18,7 +18,7 @@ def say_hello(name):
 def surveys():
     if request.method == 'GET':
         surveys = Survey.query.all()
-        return jsonify({ 'surveys': [s.to_dict() for s in surveys] })
+        return jsonify([s.to_dict() for s in surveys])
     elif request.method == 'POST':
         data = request.get_json()
         survey = Survey(name=data['name'])
@@ -27,16 +27,16 @@ def surveys():
             question = Question(text=q['text'])
             question.choices = [Choice(text=c['text']) for c in q['choices']]
             questions.append(question)
-            survey.questions = questions
-            db.session.add(survey)
-            db.session.commit()
-            return jsonify(survey.to_dict()), 201
+        survey.questions = questions
+        db.session.add(survey)
+        db.session.commit()
+        return jsonify(survey.to_dict()), 201
 
 @api.route('/surveys/<int:id>/',methods=('GET','PUT'))
 def survey(id):
     if request.method == 'GET':
         survey = Survey.query.get(id)
-        return jsonify({ 'survey': survey.to_dict() })
+        return jsonify(survey.to_dict())
     elif request.method == 'PUT':
         data = request.get_json()
         for q in data['questions']:
@@ -45,4 +45,3 @@ def survey(id):
         db.session.commit()
         survey = Survey.query.get(data['id'])
         return jsonify(survey.to_dict()), 201
-    

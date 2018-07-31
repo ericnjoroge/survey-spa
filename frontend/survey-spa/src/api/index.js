@@ -1,3 +1,8 @@
+import axios from 'axios'
+
+const API_URL = 'http://127.0.0.1:5000/api'
+
+/*
  const surveys = [{
   id: 1,
   name: 'Dogs',
@@ -39,42 +44,20 @@
           { id: 23, text: 'Camaro', selected: 0 }]
       }]
 }]
+*/
 
 export function fetchSurveys() {
-  return new Promise((resolve,reject) => {
-    setTimeout(() => {
-      resolve(surveys)
-    },300)
-  })
+  return axios.get(`${API_URL}/surveys/`)
 }
 
 export function fetchSurvey (surveyId) {
-  return new Promise((resolve,reject) => {
-    setTimeout(() => {
-      const survey = surveys.find(survey => survey.id === surveyId)
-      if (survey) {
-        resolve(survey)
-      } else {
-        reject(Error('Survey does not exist'))
-      }
-    },300)
-  })
+  return axios.get(`${API_URL}/surveys/${surveyId}`)
 }
 
 export function saveSurveyResponse (surveyResponse) {
-  return new Promise((resolve,reject) => {
-    setTimeout(() => {
-      console.log("saving survey response...")
-      resolve()
-    },300)
-  })
+  return axios.put(`${API_URL}/surveys/${surveyResponse.id}/`,surveyResponse)
 }
 
 export function postNewSurvey(survey) {
-  return new Promise((resolve,reject) => {
-    setTimeout(() => {
-      console.log('Saving survey ...', survey)
-      resolve()
-    }, 300)
-  })
+  return axios.post(`${API_URL}/surveys/`,survey)
 }

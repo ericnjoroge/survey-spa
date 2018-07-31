@@ -19,7 +19,7 @@ export default new Router({
       component: Survey,
     },
     {
-      path: '/surveys',
+      path: '/surveys/',
       name: 'NewSurvey',
       component: NewSurvey
     },
