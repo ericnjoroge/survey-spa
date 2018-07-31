@@ -38,23 +38,25 @@ def login():
 
     return jsonify({ 'token': token.decode('UTF-8') })
 
-@api.route('/surveys/',methods=('GET','POST'))
-def surveys():
-    if request.method == 'GET':
-        surveys = Survey.query.all()
-        return jsonify([s.to_dict() for s in surveys])
-    elif request.method == 'POST':
-        data = request.get_json()
-        survey = Survey(name=data['name'])
-        questions = []
-        for q in data['questions']:
-            question = Question(text=q['text'])
-            question.choices = [Choice(text=c['text']) for c in q['choices']]
-            questions.append(question)
-        survey.questions = questions
-        db.session.add(survey)
-        db.session.commit()
-        return jsonify(survey.to_dict()), 201
+@api.route('/surveys/', methods=('POST',))
+def create_survey(current_user):
+    data = request.get_json()
+    survey = Survey(name=data['name'])
+    questions = []
+    for q in data['questions']:
+        question = Question(text=q['text'])
+        question.choices = [Choice(text=c['text']) for c in q['choices']]
+        questions.append(question)
+    survey.questions = questions
+    survey.creator = current_user
+    db.session.add(survey)
+    db.session.commit()
+    return jsonify(survey.to_dict()), 201
+
+@api.route('/surveys/',methods=('GET',))
+def fetch_surveys():
+    surveys = Survey.query.all()
+    return jsonify([s.to_dict() for s in surveys])
 
 @api.route('/surveys/<int:id>/',methods=('GET','PUT'))
 def survey(id):
