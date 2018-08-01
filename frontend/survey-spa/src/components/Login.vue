@@ -32,37 +32,39 @@
 </template>
 
 <script>
+import { EventBus } from '@/utils';
+
 export default {
   data() {
     return {
       email: '',
       password: '',
-      errorMsg: ''
-    }
+      errorMsg: '',
+    };
   },
   methods: {
     authenticate() {
       this.$store.dispatch('login', { email: this.email, password: this.password })
-        .then(() => this.$router.push('/'))
+        .then(() => this.$router.push('/'));
     },
     register() {
       this.$store.dispatch('register', { email: this.email, password: this.password })
-        .then(() => this.$router.push('/'))
-    }
+        .then(() => this.$router.push('/'));
+    },
   },
   mounted() {
     EventBus.$on('failedRegistering', (msg) => {
-      this.errorMsg = msg
-    })
+      this.errorMsg = msg;
+    });
     EventBus.$on('failedAuthentication', (msg) => {
-      this.errorMsg = msg
-    })
+      this.errorMsg = msg;
+    });
   },
   beforeDestroy() {
-    EventBus.$off('failedRegistering')
-    EventBus.$off('failedAuthentication')
-  }
-}
+    EventBus.$off('failedRegistering');
+    EventBus.$off('failedAuthentication');
+  },
+};
 </script>
 
 <style lang="css">

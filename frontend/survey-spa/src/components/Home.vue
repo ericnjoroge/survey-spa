@@ -15,7 +15,9 @@
             <p class="subtitle">{{ survey.created_at }}</p>
           </div>
           <div class="card-footer">
-            <router-link :to="`surveys/${survey.id}`" class="card-footer-item">Take Survey</router-link>
+            <router-link :to="`surveys/${survey.id}`" class="card-footer-item">
+              Take Survey
+            </router-link>
           </div>
         </div>
       </div>
@@ -24,16 +26,16 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState } from 'vuex';
 
 export default {
   computed: mapState({
-    surveys: state => state.surveys
+    surveys: state => state.surveys,
   }),
   beforeMount() {
-    this.$store.dispatch('loadSurveys')
-  }
-}
+    this.$store.dispatch('loadSurveys');
+  },
+};
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

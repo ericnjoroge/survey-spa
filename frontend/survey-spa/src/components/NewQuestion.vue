@@ -45,27 +45,27 @@ export default {
   data() {
     return {
       question: '',
-      choices: []
-    }
+      choices: [],
+    };
   },
   methods: {
     removeChoice(choice) {
-      const idx = this.choices.findIndex(c => c === choice)
-      this.choices.splice(idx,1)
+      const idx = this.choices.findIndex(c => c === choice);
+      this.choices.splice(idx, 1);
     },
     saveQuestion() {
       this.$emit('questionComplete', {
         question: this.question,
-        choices: this.choices.filter(c => !!c)
-      })
-      this.question = ''
-      this.choices = []
+        choices: this.choices.filter(c => !!c),
+      });
+      this.question = '';
+      this.choices = [];
     },
     addChoice() {
-      this.choices.push('')
-    }
-  }
-}
+      this.choices.push('');
+    },
+  },
+};
 </script>
 
 <style lang="css">

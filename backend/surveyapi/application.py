@@ -10,7 +10,7 @@ def create_app(app_name='SURVEY_API'):
     app = Flask(app_name)
     app.config.from_object('surveyapi.config.BaseConfig')
 
-    cors = CORS(app,resources={r"/api/*": {"origins": "*"}})
+    cors = CORS(app,resources={r"/api/*": {"origins": "http://127.0.0.1:8080"}})
 
     from surveyapi.api import api
     app.register_blueprint(api, url_prefix="/api")

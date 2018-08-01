@@ -30,7 +30,7 @@ class User(db.Model):
         if not email or not password:
             return None
 
-        user = cls.quer.filter_by(email=email).first()
+        user = cls.query.filter_by(email=email).first()
         if not user or not check_password_hash(user.password,password):
             return None
 
@@ -46,6 +46,7 @@ class Survey(db.Model):
     name = db.Column(db.Text)
     created_at = db.Column(db.DateTime, default=datetime.utcnow())
     questions = db.relationship('Question',backref='survey',lazy=False)
+    creator_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=True)
 
     def to_dict(self):
         return dict(id=self.id, name=self.name,
