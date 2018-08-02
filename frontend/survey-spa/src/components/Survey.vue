@@ -68,14 +68,14 @@ export default {
       if (this.currentQuestion === this.survey.questions.length - 1) {
         this.currentQuestion = 0;
       } else {
-        this.currentQuestion++;
+        this.currentQuestion += 1;
       }
     },
     goToPreviousQuestion() {
       if (this.currentQuestion === 0) {
         this.currentQuestion = this.survey.questions.length - 1;
       } else {
-        this.currentQuestion--;
+        this.currentQuestion -= 1;
       }
     },
     handleSubmit() {
