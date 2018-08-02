@@ -61,17 +61,17 @@ const actions = {
 
 const mutations = {
   // isolated data mutations
-  setSurveys(payload) {
+  setSurveys(state, payload) {
     state.surveys = payload.surveys;
   },
-  setSurvey(payload) {
+  setSurvey(state, payload) {
     const nQuestions = payload.survey.questions.length;
     for (let i = 0; i < nQuestions; i += 1) {
       Vue.set(payload.survey.questions[i], 'choice', null);
     }
     state.currentSurvey = payload.survey;
   },
-  setChoice(payload) {
+  setChoice(state, payload) {
     const { questionId, choice } = payload;
     const nQuestions = state.currentSurvey.questions.length;
     for (let i = 0; i < nQuestions; i += 1) {
@@ -81,11 +81,11 @@ const mutations = {
       }
     }
   },
-  setUserData(payload) {
+  setUserData(state, payload) {
     console.log('setUserData payload = ', payload);
-    state.userData = payload.userData;
+    state.user = payload.userData;
   },
-  setJwtToken(payload) {
+  setJwtToken(state, payload) {
     console.log('setJwtToken payload = ', payload);
     localStorage.token = payload.jwt.token;
     state.jwt = payload.jwt;

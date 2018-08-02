@@ -8,13 +8,15 @@ from functools import wraps
 from datetime import datetime, timedelta
 
 import jwt
+from flask_cors import CORS, cross_origin
 
 from flask import Blueprint, jsonify, request, current_app
 from .models import db, Survey, Question, Choice, User
 
 api = Blueprint('api',__name__)
 
-@api.route('/register/',methods=('POST',))
+@api.route('/register/',methods=['POST'])
+@cross_origin(origin='*',headers=['Content-Type','Authorization'])
 def register():
     data = request.get_json()
     user = User(**data)

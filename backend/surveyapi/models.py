@@ -36,7 +36,7 @@ class User(db.Model):
 
         return user
 
-        def to_dict(self):
+    def to_dict(self):
             return dict(id=self.id, email=self.email)
 
 class Survey(db.Model):
